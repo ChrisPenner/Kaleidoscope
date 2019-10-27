@@ -1,6 +1,6 @@
 module Main where
 
-import Lib
+import Kaleidoscope.Repl
 
 main :: IO ()
-main = someFunc
+main = repl

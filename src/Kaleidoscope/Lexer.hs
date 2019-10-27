@@ -10,7 +10,7 @@ import Text.Megaparsec
 import Text.Megaparsec.Char
 import Text.Megaparsec.Char.Lexer hiding (space)
 
-type Parser a = Parsec Void T.Text a
+type Parser = Parsec Void T.Text
 
 lex :: Parser a -> Parser a
 lex = lexeme space

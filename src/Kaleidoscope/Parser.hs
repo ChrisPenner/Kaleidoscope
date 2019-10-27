@@ -22,7 +22,17 @@ floating = Float <$> double
 variable :: Parser Expr
 variable = Var <$> identifier
 
-expr = undefined
+binary :: T.Text -> Op -> (Parser (Expr -> Expr -> Expr) -> t) -> t
+binary s f assoc = assoc (reservedOp s >> return (BinOp f))
+
+table :: [[Operator Parser Expr]]
+table = [ [ binary "*" Times InfixL
+          , binary "/" Divide InfixL]
+        , [ binary "+" Plus InfixL
+          , binary "-" Minus InfixL]]
+
+expr :: Parser Expr
+expr = makeExprParser  factor table
 
 function :: Parser Expr
 function = do
@@ -48,6 +58,7 @@ call = do
 factor :: Parser Expr
 factor = asum
   [ try floating
+  , try int
   , try extern
   , try function
   , try call

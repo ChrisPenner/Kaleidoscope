@@ -27,6 +27,7 @@ dependencies:
 - megaparsec
 - parser-combinators
 - text
+- haskeline
 
 library:
   source-dirs: src
